@@ -79,14 +79,6 @@ namespace WiredBrainCoffe.CustomersAPP
             this.moveSymbolIcon.Source = new BitmapImage(new Uri(symbolImage, UriKind.RelativeOrAbsolute));
         }
 
-        private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var customer = this.customerListView.SelectedItem as Customer;
-            if (customer != null)
-            {
-                this.customerDetailControl.Customer = customer;
-            }
-        }
 
         private void ApplyTheme()
         {

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using WiredBrainCoffe.CustomersAPP.Model;
 
@@ -9,25 +10,35 @@ namespace WiredBrainCoffe.CustomersAPP.Controls
     /// </summary>
     public partial class CustomerDetailControl : UserControl
     {
+        private static bool isChangingSelectedCustomer;
+
+        // Using a DependencyProperty as the backing store for Customer.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CustomerProperty =
+            DependencyProperty.Register("Customer", typeof(Customer), typeof(CustomerDetailControl), new PropertyMetadata(null, CustomerChangeCallback));
+
+
         public CustomerDetailControl()
         {
             InitializeComponent();
         }
 
-        private bool isChangingSelectedCustomer;
-        private Customer _customer;
-
         public Customer Customer
         {
-            get { return _customer; }
-            set
+            get { return (Customer)GetValue(CustomerProperty); }
+            set { SetValue(CustomerProperty, value); }
+        }
+
+
+        private static void CustomerChangeCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CustomerDetailControl customerDetailControl)
             {
-                this.isChangingSelectedCustomer = true;
-                _customer = value;
-                this.txtFirstName.Text = this._customer?.FirstName ?? "";
-                this.txtLastName.Text = this._customer?.LastName ?? "";
-                this.chkIsDeveloper.IsChecked = this._customer?.IsDeveloper;
-                this.isChangingSelectedCustomer = false;
+                var customer = e.NewValue as Customer;
+                isChangingSelectedCustomer = true;
+                customerDetailControl.txtFirstName.Text = customer?.FirstName ?? "";
+                customerDetailControl.txtLastName.Text = customer?.LastName ?? "";
+                customerDetailControl.chkIsDeveloper.IsChecked = customer?.IsDeveloper;
+                isChangingSelectedCustomer = false;
             }
         }
 
@@ -43,7 +54,7 @@ namespace WiredBrainCoffe.CustomersAPP.Controls
 
         private void UpdateCustomer()
         {
-            if (this.Customer != null && !this.isChangingSelectedCustomer)
+            if (this.Customer != null && !isChangingSelectedCustomer)
             {
                 this.Customer.FirstName = this.txtFirstName.Text;
                 this.Customer.LastName = this.txtLastName.Text;

@@ -58,10 +58,10 @@
                 </Button>
             </StackPanel>
 
-            <ListView Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}" Grid.Row="1" x:Name="customerListView" DisplayMemberPath="FirstName" SelectionChanged="CustomerListView_SelectionChanged"/>
+            <ListView Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}" Grid.Row="1" x:Name="customerListView" DisplayMemberPath="FirstName"/>
         </Grid>
 
         <!--Customer detail-->
-        <controls:CustomerDetailControl Grid.Row="1" Grid.Column="1" x:Name="customerDetailControl"/>
+        <controls:CustomerDetailControl Grid.Row="1" Grid.Column="1" Customer="{Binding ElementName=customerListView, Path=SelectedItem,Mode=TwoWay}"/>
     </Grid>
 </Window>
