@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="BackgroundColor" Color="White" />
+    <SolidColorBrush x:Key="ForegroundColor" Color="#2A272A" />
+    <SolidColorBrush x:Key="TextBoxBackgroundColor" Color="#DADDE2" />
+    <Style x:Key="CustomCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <!-- Define el estilo personalizado aquí -->
+        <Setter Property="Foreground" Value="#2A272A" />
+        <!-- Otros setters y propiedades personalizadas si es necesario -->
+    </Style>
+</ResourceDictionary>
